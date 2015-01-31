@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PushWord</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="current_wordset">학습중인 단어장</string>
+    <string name="learning_progress">학습 진행률</string>
+    <string name="setting_button">설정</string>
+    <string name="test_button">테스트</string>
+</resources>
