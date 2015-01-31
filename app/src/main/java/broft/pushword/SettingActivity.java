@@ -3,30 +3,34 @@ package broft.pushword;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
-import Service.LockScreenService;
+import broft.pushword.Service.LockScreenService;
+
 /**
  * Created by 태욱 on 2015-01-28.
  */
 public class SettingActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-//TODO: 쉐어드 프리퍼런스로 설정 지정 및 저장
+        setContentView(R.layout.activity_setting);
+
+//TODO: 쉐어드 프리퍼런스로 설정
         final Switch lockScreenSwitch = (Switch)findViewById(R.id.switch_lockscreen);
-        lockScreenSwitch.setOnClickListener(new View.OnClickListener() {
+        lockScreenSwitch.setOnClickListener(new Switch.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(lockScreenSwitch.isChecked() == false){
-                    lockScreenSwitch.toggle();
-                    startService(new Intent(getApplicationContext(),LockScreenService.class));
+                if(lockScreenSwitch.isChecked()){
+                    startService(new Intent(getApplicationContext(), LockScreenService.class));
+                    Log.i("YJ", "Service start");
                 }
                 else{
-                    lockScreenSwitch.toggle();
                     stopService(new Intent(getApplicationContext(),LockScreenService.class));
+                    Log.i("YJ", "Service End");
                 }
             }
         });
