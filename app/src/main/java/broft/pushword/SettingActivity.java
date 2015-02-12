@@ -10,36 +10,45 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import broft.pushword.Service.LockScreenService;
+import broft.pushword.Service.PushAlarmService;
 
 /**
  * Created by 태욱 on 2015-01-28.
  */
 public class SettingActivity extends ActionBarActivity {
-    protected void onCreate(Bundle savedInstanceState) {
+    Switch lockScreenSwitch;
+    Switch pushSwitch;
+
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
 //TODO: 쉐어드 프리퍼런스로 설정
-        final Switch lockScreenSwitch = (Switch)findViewById(R.id.switch_lockscreen);
-        lockScreenSwitch.setOnClickListener(new Switch.OnClickListener(){
+        lockScreenSwitch = (Switch)findViewById(R.id.switch_lockscreen);
+        lockScreenSwitch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                if(lockScreenSwitch.isChecked()){
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
                     startService(new Intent(getApplicationContext(), LockScreenService.class));
-                    Log.i("YJ", "Service start");
-                }
-                else{
-                    stopService(new Intent(getApplicationContext(),LockScreenService.class));
-                    Log.i("YJ", "Service End");
+                    Log.i("YJ", "LockScreen Service start");
+                } else {
+                    stopService(new Intent(getApplicationContext(), LockScreenService.class));
+                    Log.i("YJ", "LockScreen Service End");
                 }
             }
         });
 
-        final Switch pushSwitch = (Switch)findViewById(R.id.switch_push);
-        pushSwitch.setOnClickListener(new View.OnClickListener() {
+        pushSwitch = (Switch)findViewById(R.id.switch_push);
+        pushSwitch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    startService(new Intent(getApplicationContext(), PushAlarmService.class));
+                    Log.i("YJ", "Push Service start");
+                } else {
+                    stopService(new Intent(getApplicationContext(), PushAlarmService.class));
+                    Log.i("YJ", "Push Service End");
+                }
             }
         });
 
@@ -51,7 +60,6 @@ public class SettingActivity extends ActionBarActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
             }
         });
 
@@ -62,6 +70,6 @@ public class SettingActivity extends ActionBarActivity {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
-
     }
+
 }
