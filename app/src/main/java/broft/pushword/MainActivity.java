@@ -31,6 +31,7 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(new Intent(getApplicationContext(), SettingActivity.class));
             }
         });
+
         Button testButton = (Button)findViewById(R.id.test_button);
         testButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -43,5 +44,28 @@ public class MainActivity extends ActionBarActivity {
     protected void onStart() {
         super.onStart();
         Log.i("YJ", "OnStart");
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("YJ","OnResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i("YJ","OnPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("YJ","OnStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("YJ","OnDestroy");
     }
 }

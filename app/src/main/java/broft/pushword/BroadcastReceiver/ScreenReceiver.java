@@ -17,11 +17,14 @@ public class ScreenReceiver extends BroadcastReceiver {
    // private KeyguardManager km;
    // private KeyguardManager.KeyguardLock keyLock;
 
-    @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)||intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
-            Log.i("VJ", "리시버 실행됨");
-            //잠금화면을 띄운다
+        if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+            Log.i("YJ", "Screen OFF");
+            Intent i = new Intent(context, LockScreenActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(i);
+        } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
+            Log.i("YJ","Screen ON");
             Intent i = new Intent(context, LockScreenActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(i);

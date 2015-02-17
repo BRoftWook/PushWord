@@ -5,24 +5,22 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 
-import broft.pushword.BroadcastReceiver.AlarmReceiver;
+import broft.pushword.PushActivity;
 
 /**
  * Created by 태욱 on 2015-01-31.
  */
 public class PushAlarmService extends Service {
-    AlarmReceiver mReceiver;
 
     public PushAlarmService(){
     }
     public void onCreate() {
         super.onCreate();
-        mReceiver = new AlarmReceiver();
-        Log.i("JYJ","ADfgsdfg");
     }
 
     @Override
@@ -33,20 +31,22 @@ public class PushAlarmService extends Service {
     }
 
     public void setAlarm(){
+        //TODO: 푸쉬 시간 설정하는 로직 필요
         AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(PushAlarmService.this, AlarmReceiver.class);
-        PendingIntent pender = PendingIntent.getBroadcast(PushAlarmService.this, 0, intent, 0);
+        Intent intent = new Intent(PushAlarmService.this, PushActivity.class);
+        PendingIntent pender = PendingIntent.getActivity(getApplicationContext(),0,intent,0);
         long firstTime = SystemClock.elapsedRealtime();
         alarm.setRepeating(AlarmManager.ELAPSED_REALTIME, firstTime ,5*1000 ,pender);
     }
 
     @Override
     public void onDestroy() {
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(PushAlarmService.this, PushActivity.class);
+        PendingIntent pender = PendingIntent.getActivity(getApplicationContext(),0,intent,0);
+        pender.cancel();
         super.onDestroy();
     }
     @Override
-    public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
+    public IBinder onBind(Intent intent) {throw new UnsupportedOperationException("Not yet implemented");}
 }

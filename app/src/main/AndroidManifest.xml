@@ -41,26 +41,27 @@
             android:label="@string/app_name" >
         </activity>
 
+        <activity android:name=".PushActivity"
+                    android:theme="@android:style/Theme.Dialog">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
         <receiver
-            android:name=".BroadcastReceiver$ScreenReceiver"
+            android:name="broft.pushword.BroadcastReceiver.ScreenReceiver"
             android:enabled="true"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.SCREEN_OFF"/>
-                <action android:name="android.intent.action.SCREEN_ON"/>
-            </intent-filter>
         </receiver>
 
-        <receiver android:name="AlarmService_Service" android:process=":remote" />
-
         <service
-            android:name=".Service$PushAlarmService"
+            android:name="broft.pushword.Service.PushAlarmService"
             android:enabled="true"
             android:exported="true" >
         </service>
 
         <service
-            android:name=".Service$LockScreenService"
+            android:name="broft.pushword.Service.LockScreenService"
             android:enabled="true"
             android:exported="true" >
         </service>

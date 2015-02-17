@@ -17,11 +17,6 @@ public class LockScreenService extends Service {
     ScreenReceiver mReceiver;
 
     @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-    @Override
     public void onCreate() {
         super.onCreate();
         mReceiver = new ScreenReceiver();
@@ -30,11 +25,9 @@ public class LockScreenService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
-        super.onStart(intent, startId);
         IntentFilter screenStateFilter = new IntentFilter();
         screenStateFilter.addAction(Intent.ACTION_SCREEN_ON);
         screenStateFilter.addAction(Intent.ACTION_SCREEN_OFF);
-
         registerReceiver(mReceiver,screenStateFilter);
         Log.i("YJ", "스크린 감지 서비스 시작!");
         return START_STICKY;  //시스템이 죽여도 다시 살린다!
@@ -46,4 +39,10 @@ public class LockScreenService extends Service {
         unregisterReceiver(mReceiver);
         Log.i("YJ", "스크린 감지 서비스 끝남!");
     }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
 }
