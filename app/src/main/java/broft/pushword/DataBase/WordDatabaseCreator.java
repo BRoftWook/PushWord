@@ -10,23 +10,25 @@ import android.util.Log;
  */
 public class WordDatabaseCreator extends SQLiteOpenHelper {
     // 데이터베이스 생성
-    public WordDatabaseCreator(Context context, String name, SQLiteDatabase.CursorFactory factory,
-                                  int version) {
+    public WordDatabaseCreator(Context context, String name, SQLiteDatabase.CursorFactory factory,int version) {
         super(context, name, factory, version);
     }
     // 테이블 생성
     public void onCreate(SQLiteDatabase db) {
         Log.i("DB", "Creating word set table..");
 
-        String sql = "create table wordset ( " +
-                " _id integer primary key autoincrement , " +
-                " word text , " +
-                " meaning text , " +
-                " level integer , " +
-                " pass integer )";
+        String sql = "create table wordset (" +
+                "_id integer primary key autoincrement, " +
+                "word text, " +
+                "meaning text, " +
+                "level integer, " +
+                "pass integer);";
         db.execSQL(sql);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        String sql = "drop table if exists wordset";
+        db.execSQL(sql);
+        onCreate(db);
     }
 }

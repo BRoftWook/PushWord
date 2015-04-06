@@ -27,11 +27,5 @@ public class SettingDatabaseCreator extends SQLiteOpenHelper {
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.i("xxx", "onUpgrade >>>>>>>>>>>>>>>.....");
-
-        String sql = "drop table if exists person";
-        db.execSQL(sql);
-
-        onCreate(db);
     }
 }
